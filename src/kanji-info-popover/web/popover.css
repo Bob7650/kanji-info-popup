@@ -1,0 +1,41 @@
+#kdpover {
+    position: absolute;
+    overflow-y: scroll;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    padding: 8px;
+
+    border-radius: 8px;
+
+    min-width: 100px;
+    max-width: 150px;
+    max-height: 250px;
+
+    background-color: rgb(24, 24, 24);
+    outline: 1px solid black;
+    color: white;
+
+    > div {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 2px;
+    }
+}
+
+.kdpover-header {
+    font-size: small;
+    font-weight: bold;
+    color: darkgray;
+}
+
+.kdpover-content {
+    font-size: medium;
+}
+
+.kdpover-kanji {
+    font-size: xx-large;
+}
