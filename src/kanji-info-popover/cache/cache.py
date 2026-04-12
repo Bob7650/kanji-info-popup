@@ -8,7 +8,7 @@ def cache_lookup(kanji: str):
     db = sqlite3.connect(CACHE_DB_PATH)
     db.row_factory = sqlite3.Row
 
-    cursor = db.execute(f"SELECT {", ".join(COLUMNS)} stroke_count FROM kanji_cache WHERE kanji == ?", kanji)
+    cursor = db.execute(f"SELECT {", ".join(COLUMNS)} FROM kanji_cache WHERE kanji == ?", kanji)
     sqlResult = cursor.fetchone()
 
     if not sqlResult: return None
@@ -30,7 +30,7 @@ def user_cache_lookup(kanji: str):
     db.row_factory = sqlite3.Row
 
     try:
-        cursor = db.execute(f"SELECT {", ".join(COLUMNS)} stroke_count FROM kanji_user_cache WHERE kanji == ?", kanji)
+        cursor = db.execute(f"SELECT {", ".join(COLUMNS)} FROM kanji_user_cache WHERE kanji == ?", kanji)
         sqlResult = cursor.fetchone()
     except Exception as e:
         print(f"No user cache exists: {e}")

@@ -2,10 +2,19 @@ import requests
 from typing import Any
 from .const import KANJI_API
 
-#remove duplicates
 def extract_kanji(text: str) -> list[str]:
     # CJK Unified Ideographs block: U+4E00–U+9FFF
-    return [ch for ch in text if '\u4e00' <= ch <= '\u9fff']
+    kanjiList = []
+    for ch in text:
+        if not ('\u4e00' <= ch <= '\u9fff'):
+            #not a kanji
+            continue
+        if ch in kanjiList:
+            #duplicate
+            continue
+        kanjiList.append(ch)
+
+    return kanjiList
 
 #think about doing this on another thread and maybe cooldown between requests
 def fetch_kanji_api(kanji: str) -> Any:
