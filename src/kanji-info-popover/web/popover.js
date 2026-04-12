@@ -1,7 +1,8 @@
 document.addEventListener("DOMContentLoaded", onReady);
 
 let kdpopover = undefined;
-let timeoutId;
+let visible = false;
+let oldSelection = "";
 
 function onReady() {
     initPopover();
@@ -10,6 +11,11 @@ function onReady() {
 }
 
 function onMouseUp(e) {
+    if (visible && isInsidePopover(e.clientX, e.clientY)) {
+        console.log("Mouse inside popover, canceling event");
+        return;
+    }
+
     const selection = getSelectionText();
 
     if (!selection) {
@@ -22,11 +28,9 @@ function onMouseUp(e) {
 
 function setPopoverContent(content) {
     const command = "KanjiPopupContentPrep:" + content;
-    console.log(`Sending command to python cmd ${command}`);
-    pycmd(command, (kanjiListJson) => {
-        console.log(`Received ${kanjiListJson}`);
-        //kanjiList = JSON.parse(kanjiListJson);
-        buildPopover(kanjiListJson);
+    pycmd(command, (kanjiDataList) => {
+        if (kanjiDataList.length == 0) return;
+        buildPopover(kanjiDataList);
         showPopover(10, 10);
     });
 }
@@ -34,14 +38,19 @@ function setPopoverContent(content) {
 function initPopover() {
     kdpopover = document.createElement("div");
     kdpopover.id = "kdpover";
+
+    kdpopover.style.display = visible ? "flex" : "none";
 }
 
 function buildPopover(kanjiDataList) {
     kdpopover.innerHTML = "";
-    kanjiDataList.forEach((kanjiData) => {
+
+    for (let i = 0; i < kanjiDataList.length; i++) {
+        kanjiData = kanjiDataList[i];
         kdpopover.appendChild(buildKanjiEntry(kanjiData));
-        kdpopover.appendChild(document.createElement("hr"));
-    });
+        if (i != kanjiDataList.length - 1)
+            kdpopover.appendChild(document.createElement("hr"));
+    }
 }
 
 function buildKanjiEntry(kanjiData) {
@@ -60,22 +69,16 @@ function buildKanjiEntry(kanjiData) {
     return kanjiEntry;
 }
 
-// function requestHidePopover() {
-//     timeoutId = window.setTimeout(() => hidePopover(), 200);
-// }
-
-// function cancelHidePopover() {
-//     window.clearTimeout(timeoutId);
-// }
-
 function hidePopover() {
     kdpopover.style.display = "none";
+    visible = false;
 }
 
 function showPopover(x, y) {
     kdpopover.style.left = `${x}px`;
     kdpopover.style.top = `${y}px`;
     kdpopover.style.display = "flex";
+    visible = true;
 }
 
 function getSelectionText() {
@@ -86,4 +89,18 @@ function getSelectionText() {
     }
 
     return text;
+}
+
+function isInsidePopover(x, y) {
+    const popoverRect = kdpopover.getBoundingClientRect();
+
+    // temporary solution to make interaction with scrollbar not close the popover
+    const scrollbarPadding = 15;
+
+    return (
+        popoverRect.x < x &&
+        x < popoverRect.width + scrollbarPadding &&
+        popoverRect.y < y &&
+        y < popoverRect.height
+    );
 }
