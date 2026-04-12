@@ -12,7 +12,7 @@ function onReady() {
 
 function onMouseUp(e) {
     if (visible && isInsidePopover(e.clientX, e.clientY)) {
-        console.log("Mouse inside popover, canceling event");
+        //console.log("Mouse inside popover, canceling event");
         return;
     }
 
@@ -28,9 +28,10 @@ function onMouseUp(e) {
 
 function setPopoverContent(content) {
     const command = "KanjiPopupContentPrep:" + content;
-    pycmd(command, (kanjiDataList) => {
-        if (kanjiDataList.length == 0) return;
-        buildPopover(kanjiDataList);
+    pycmd(command, (displayData) => {
+        if (displayData["kanjiDataList"].length === 0) return;
+        if (displayData["displayConfig"].length === 0) return;
+        buildPopover(displayData);
         showPopover(10, 10);
     });
 }
@@ -42,29 +43,30 @@ function initPopover() {
     kdpopover.style.display = visible ? "flex" : "none";
 }
 
-function buildPopover(kanjiDataList) {
+function buildPopover(displayData) {
+    kanjiDataList = displayData["kanjiDataList"];
+    displayConfig = displayData["displayConfig"];
     kdpopover.innerHTML = "";
 
     for (let i = 0; i < kanjiDataList.length; i++) {
         kanjiData = kanjiDataList[i];
-        kdpopover.appendChild(buildKanjiEntry(kanjiData));
+        kdpopover.appendChild(buildKanjiEntry(kanjiData, displayConfig));
         if (i != kanjiDataList.length - 1)
             kdpopover.appendChild(document.createElement("hr"));
     }
 }
 
-function buildKanjiEntry(kanjiData) {
+function buildKanjiEntry(kanjiData, displayConfig) {
     const kanjiEntry = document.createElement("div");
 
-    kanjiEntry.innerHTML = `<span class="kdpover-header">Kanji</span>
-    <span class="kdpover-kanji" id="kdpover-kanji">${kanjiData.kanji}</span>
-    <span class="kdpover-header">Meaning</span>
-    <span class="kdpover-content" id="kdpover-meanings">${kanjiData.meanings.join(", ")}</span>
-    <span class="kdpover-header">Onyomi</span>
-    <span class="kdpover-content" id="kdpover-onyomi">${kanjiData.on_readings.join(", ")}</span>
-    <span class="kdpover-header">Kunyomi</span>
-    <span class="kdpover-content" id="kdpover-kunyomi">${kanjiData.kun_readings.join(", ")}</span>
-    `;
+    if (displayConfig["displayKanji"])
+        kanjiEntry.innerHTML += `<span class="kdpover-header">Kanji</span><span class="kdpover-kanji" id="kdpover-kanji">${kanjiData.kanji}</span>`;
+    if (displayConfig["displayMeanings"])
+        kanjiEntry.innerHTML += `<span class="kdpover-header">Meaning</span><span class="kdpover-content" id="kdpover-meanings">${kanjiData.meanings.join(", ")}</span>`;
+    if (displayConfig["displayOnyomi"])
+        kanjiEntry.innerHTML += `<span class="kdpover-header">Onyomi</span><span class="kdpover-content" id="kdpover-onyomi">${kanjiData.on_readings.join(", ")}</span>`;
+    if (displayConfig["displayKunyomi"])
+        kanjiEntry.innerHTML += `<span class="kdpover-header">Kunyomi</span><span class="kdpover-content" id="kdpover-kunyomi">${kanjiData.kun_readings.join(", ")}</span>`;
 
     return kanjiEntry;
 }

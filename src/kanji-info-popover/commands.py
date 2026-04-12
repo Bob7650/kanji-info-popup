@@ -1,8 +1,9 @@
+from aqt import mw
 from . import utils
 from .cache import cache
 
 def make_popup_content(userSelection: str) -> list[str]:
-    kanjiList = utils.extract_kanji(userSelection)
+    kanjiList = utils.extract_unique_kanji(userSelection)
     kanjiDataList = []
 
     if len(kanjiList) == 0:
@@ -32,4 +33,8 @@ def make_popup_content(userSelection: str) -> list[str]:
             continue
         print(f"Could not fetch {kanji}")
     
-    return kanjiDataList
+    displayData = {}
+    displayData["kanjiDataList"] = kanjiDataList
+    displayData["displayConfig"] = mw.addonManager.getConfig(__name__)["displayConfig"]
+
+    return displayData

@@ -22,7 +22,7 @@ def on_webview_did_recieve_js_message(callback: tuple[bool, Any],message: str, c
 
     return (True, value)
 
-def handle_command(message: str) -> str:
+def handle_command(message: str) -> Any:
     print(f"Parsing command {message}")
     (header, data) = message.split(':',1)
 

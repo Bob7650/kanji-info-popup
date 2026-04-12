@@ -1,0 +1,12 @@
+{
+    "displayConfig": {
+        "displayKanji": true,
+        "displayMeanings": true,
+        "displayOnyomi": true,
+        "displayKunyomi": true,
+        "displayHeisig": false,
+        "displayGrade": false,
+        "displayJLPT": false,
+        "displayStrokeCount": false
+    }
+}
