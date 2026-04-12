@@ -1,4 +1,5 @@
 from aqt import mw
+from aqt.utils import tooltip
 from . import utils
 from .cache import cache
 
@@ -25,13 +26,17 @@ def make_popup_content(userSelection: str) -> list[str]:
             continue
         print(f"Could not find {kanji} in user cache")
 
-        kanjiData = utils.fetch_kanji_api(kanji)
-        if kanjiData:
-            print(f"Fetched {kanji} from API")
-            cache.save_to_user_cache(kanjiData)
-            kanjiDataList.append(kanjiData)
-            continue
-        print(f"Could not fetch {kanji}")
+        if mw.addonManager.getConfig(__name__)["shouldUseAPI"]:
+            kanjiData = utils.fetch_kanji_api(kanji)
+            if kanjiData:
+                print(f"Fetched {kanji} from API")
+                cache.save_to_user_cache(kanjiData)
+                kanjiDataList.append(kanjiData)
+                continue
+            print(f"Could not fetch {kanji}")
+        else:
+            print(f"Can't fetch {kanji}, shouldUseAPI is turned off.")
+            tooltip(f"Unknown Kanji {kanji}, shouldUseAPI is turned off in settings.")
     
     displayData = {}
     displayData["kanjiDataList"] = kanjiDataList

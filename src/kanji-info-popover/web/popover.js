@@ -104,7 +104,7 @@ function getSelectionText() {
 function isInsidePopover(x, y) {
     const popoverRect = kdpopover.getBoundingClientRect();
 
-    // temporary solution to make interaction with scrollbar not close the popover
+    // to make interaction with scrollbar not close the popover
     const scrollbarPadding = 15;
 
     return (

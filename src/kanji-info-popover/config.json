@@ -8,5 +8,6 @@
         "displayGrade": false,
         "displayJLPT": false,
         "displayStrokeCount": false
-    }
+    },
+    "shouldUseAPI": true 
 }
