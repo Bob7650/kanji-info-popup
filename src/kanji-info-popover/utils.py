@@ -1,6 +1,6 @@
 import requests
 from typing import Any
-from .const import KANJI_API
+from .consts import KANJI_API
 
 def extract_unique_kanji(text: str) -> list[str]:
     # CJK Unified Ideographs block: U+4E00–U+9FFF

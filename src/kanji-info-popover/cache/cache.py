@@ -2,7 +2,7 @@ import sqlite3
 import requests
 import json
 
-from ..const import CACHE_DB_PATH, USER_CACHE_DB_PATH, COLUMNS
+from ..consts import CACHE_DB_PATH, USER_CACHE_DB_PATH, COLUMNS
 
 def cache_lookup(kanji: str):
     db = sqlite3.connect(CACHE_DB_PATH)
