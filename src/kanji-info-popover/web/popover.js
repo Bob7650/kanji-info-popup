@@ -67,6 +67,14 @@ function buildKanjiEntry(kanjiData, displayConfig) {
         kanjiEntry.innerHTML += `<span class="kdpover-header">Onyomi</span><span class="kdpover-content" id="kdpover-onyomi">${kanjiData.on_readings.join(", ")}</span>`;
     if (displayConfig["displayKunyomi"])
         kanjiEntry.innerHTML += `<span class="kdpover-header">Kunyomi</span><span class="kdpover-content" id="kdpover-kunyomi">${kanjiData.kun_readings.join(", ")}</span>`;
+    if (displayConfig["displayStrokeCount"])
+        kanjiEntry.innerHTML += `<span class="kdpover-header">Stroke Count</span><span class="kdpover-content" id="kdpover-kunyomi">${kanjiData.stroke_count}</span>`;
+    if (displayConfig["displayJLPT"])
+        kanjiEntry.innerHTML += `<span class="kdpover-header">JLPT</span><span class="kdpover-content" id="kdpover-kunyomi">${kanjiData.jlpt}</span>`;
+    if (displayConfig["displayGrade"])
+        kanjiEntry.innerHTML += `<span class="kdpover-header">Grade</span><span class="kdpover-content" id="kdpover-kunyomi">${kanjiData.grade}</span>`;
+    if (displayConfig["displayHeisig"])
+        kanjiEntry.innerHTML += `<span class="kdpover-header">Heisig English</span><span class="kdpover-content" id="kdpover-kunyomi">${kanjiData.heisig_en}</span>`;
 
     return kanjiEntry;
 }
