@@ -1,7 +1,6 @@
 from aqt import mw
 from aqt.utils import tooltip
-from . import utils
-from .cache import cache
+from . import utils, cache
 
 def make_popup_content(userSelection: str) -> list[str]:
     kanjiList = utils.extract_unique_kanji(userSelection)
