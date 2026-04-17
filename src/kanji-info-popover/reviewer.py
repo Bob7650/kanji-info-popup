@@ -1,5 +1,6 @@
 from aqt import gui_hooks
 from aqt import mw
+from aqt.qt import * 
 from aqt.reviewer import Reviewer
 from aqt.webview import WebContent
 from typing import Any
@@ -29,6 +30,13 @@ def handle_command(message: str) -> Any:
     if header == "KanjiPopupContentPrep":
         return commands.make_popup_content(data)
 
-def hook_to_anki():
+def on_cache_deck() -> None:
+        print("Caching deck")
+
+def setup():
+    cacheDeckAction = QAction("Cache deck", mw)
+    qconnect(cacheDeckAction.triggered, on_cache_deck)
+    mw.form.menuTools.addAction(cacheDeckAction)
+
     gui_hooks.webview_will_set_content.append(on_webview_will_set_content)
     gui_hooks.webview_did_receive_js_message.append(on_webview_did_recieve_js_message)
