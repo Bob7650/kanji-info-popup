@@ -1,22 +1,28 @@
 #kdpover {
     position: absolute;
 
-    overflow-y: scroll;
-
     flex-direction: column;
-    align-items: center;
-    gap: 8px;
-    padding: 8px;
-
-    border-radius: 8px;
-
-    min-width: 100px;
-    max-width: 150px;
-    max-height: 250px;
 
     background-color: #303030;
     filter: drop-shadow(0px 0px 5px #000000);
     color: white;
+
+    border-radius: 8px;
+
+    min-width: 150px;
+    max-width: 200px;
+    max-height: 250px;
+}
+
+#dataSection {
+    display: flex;
+    flex-direction: column;
+
+    overflow-y: scroll;
+
+    align-items: center;
+    gap: 8px;
+    padding: 8px;
 
     > div {
         display: flex;
@@ -26,7 +32,23 @@
     }
     > hr {
         width: 100%;
-        border-top: 1px solid white;
+        border-top: 1px solid darkgray;
+    }
+}
+
+#dragHandle {
+    position: absolute;
+    display: flex;
+    padding: 0;
+    user-select: none;
+
+    >p{
+        margin: 0;
+        padding-left: 16px;
+        padding-right: 16px;
+        cursor: move;
+        background-color: #303030;
+        border-radius: 0 0 8px 0;
     }
 }
 
