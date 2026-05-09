@@ -7,6 +7,7 @@ This is an Anki Add-on, that allows a convenient access to basic information abo
 - kanji grade,
 - JLPT level,
 - stroke count.
+
 Displayed data can be adjusted in add-on settings.
 # Installation
 There are two ways of installing Anki Add-ons:
@@ -28,6 +29,7 @@ There are two ways of installing Anki Add-ons:
 # Credits & Third-Party Resources
 ## Kanji Data
 // TODO: Check if that is correct
+
 This add-on includes kanji data sourced from [KanjiAPI.dev](https://kanjiapi.dev/) (© onlyskin), which is built on the [KANJIDIC2](https://www.edrdg.org/wiki/index.php/KANJIDIC_Project) dictionary, a property of the [Electronic Dictionary Research and Development Group (EDRDG)](https://www.edrdg.org/), used in conformance with the Group's [licence](https://www.edrdg.org/edrdg/licence.html).
 ## The Jōyō Kanji list
 The database generation script fetches the kanji list from [kanji-data](https://github.com/davidluzgouveia/kanji-data) by David Luz Gouveia.
