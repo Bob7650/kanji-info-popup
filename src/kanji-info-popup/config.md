@@ -1,4 +1,4 @@
-# Kanji Info Popover Configuration
+# Kanji Info Popup Configuration
 
 `displayConfig` - what is displayed inside the popup:
 
