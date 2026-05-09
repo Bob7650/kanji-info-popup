@@ -16,11 +16,13 @@ There are two ways of installing Anki Add-ons:
 1. Go on the [AnkiWeb](//TODO put link here) and copy the code of this Add-on.
 2. Startup your Anki and navigate to `Tools->Add-ons->Get Add-ons...`. 
 3. Paste the code you copied.
-4. Press "OK" and you're done!
+4. Press "OK" and restart Anki.
 
 **From file:**
-1. Download the `.ankiaddon` file from releases.
-2. Either double click it or drop it into your Anki.
+1. Download the .ankiaddon file below
+2. Startup your Anki and navigate to Tools->Add-ons->Get Add-ons...
+3. Press Install from file... and choose the downloaded file
+4. Restart Anki
 # Usage
 ## Select one or more kanji and the pop-up will display.
 ![popup image](https://github.com/Bob7650/kanji-info-popover/blob/main/screenshots/popup.png)
