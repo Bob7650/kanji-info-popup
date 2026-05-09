@@ -1,58 +1,99 @@
 document.addEventListener("DOMContentLoaded", onReady);
 
-let kdpopover = undefined;
+const kdpopover = document.createElement("div");
+const dragHandle = document.createElement("div");
+const dataSection = document.createElement("div");
+
+let anchor = {x: 10, y: 100};
+let offsetVector = { x: 0, y: 0 }
+
 let visible = false;
+let isDragged = false;
 let oldSelection = "";
 
 function onReady() {
     initPopover();
     document.body.appendChild(kdpopover);
     document.addEventListener("mouseup", onMouseUp);
+    document.addEventListener("mousemove", onMouseMove);
 }
 
 function onMouseUp(e) {
-    if (visible && isInsidePopover(e.clientX, e.clientY)) {
-        //console.log("Mouse inside popover, canceling event");
-        return;
-    }
-
-    const selection = getSelectionText();
-
-    if (!selection) {
-        hidePopover();
-        return;
-    }
-
-    setPopoverContent(selection);
+    setTimeout(updatePopover, 100, e);
 }
 
-function setPopoverContent(content) {
+function onMouseMove(e){
+    if(isDragged){
+        anchor.x = e.clientX + offsetVector.x;
+        anchor.y = e.clientY + offsetVector.y;
+        showPopover();
+    }
+}
+
+function updatePopover(e){
+    if (isInsidePopover(e.clientX, e.clientY)) return;
+    
+    const selection = getSelectionText();
+
+    if (visible) {
+        hidePopover(); 
+    }
+
+    if (selection) {
+        requestPopoverData(selection);
+    }
+}
+
+function requestPopoverData(content) {
     const command = "KanjiPopupContentPrep:" + content;
-    pycmd(command, (displayData) => {
-        if (displayData["kanjiDataList"].length === 0) return;
-        if (displayData["displayConfig"].length === 0) return;
-        buildPopover(displayData);
-        showPopover(10, 10);
-    });
+    pycmd(command, onDataReceived);
+}
+
+function onDataReceived(displayData) {
+    if (displayData["kanjiDataList"].length === 0) return;
+    if (displayData["displayConfig"].length === 0) return;
+    buildPopover(displayData);
+    showPopover();
 }
 
 function initPopover() {
-    kdpopover = document.createElement("div");
     kdpopover.id = "kdpover";
-
     kdpopover.style.display = visible ? "flex" : "none";
+
+    dragHandle.id = "dragHandle";
+    dragHandle.innerHTML = "<p>⠿</p>";
+    dragHandle.addEventListener("mousedown", onPopoverDragStart)
+    dragHandle.addEventListener("mouseup", onPopoverDragEnd)
+
+    dataSection.id = "dataSection";
+
+    kdpopover.appendChild(dragHandle);
+    kdpopover.appendChild(dataSection)
+}
+
+function onPopoverDragStart(e){
+    offsetVector.x = anchor.x - e.clientX;
+    offsetVector.y = anchor.y - e.clientY;
+    isDragged = true;
+    e.stopPropagation();
+}
+
+function onPopoverDragEnd(e){
+    isDragged = false;
+    e.stopPropagation();
 }
 
 function buildPopover(displayData) {
     kanjiDataList = displayData["kanjiDataList"];
     displayConfig = displayData["displayConfig"];
-    kdpopover.innerHTML = "";
+
+    dataSection.innerHTML = "";
 
     for (let i = 0; i < kanjiDataList.length; i++) {
         kanjiData = kanjiDataList[i];
-        kdpopover.appendChild(buildKanjiEntry(kanjiData, displayConfig));
+        dataSection.appendChild(buildKanjiEntry(kanjiData, displayConfig));
         if (i != kanjiDataList.length - 1)
-            kdpopover.appendChild(document.createElement("hr"));
+            dataSection.appendChild(document.createElement("hr"));
     }
 }
 
@@ -84,9 +125,9 @@ function hidePopover() {
     visible = false;
 }
 
-function showPopover(x, y) {
-    kdpopover.style.left = `${x}px`;
-    kdpopover.style.top = `${y}px`;
+function showPopover() {
+    kdpopover.style.left = `${anchor.x}px`;
+    kdpopover.style.top = `${anchor.y}px`;
     kdpopover.style.display = "flex";
     visible = true;
 }
@@ -96,8 +137,8 @@ function getSelectionText() {
 
     if (window.getSelection()) {
         text = window.getSelection().toString();
+        text = text.trim();
     }
-
     return text;
 }
 
