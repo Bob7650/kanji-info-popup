@@ -11,9 +11,9 @@ Displayed data can be adjusted in add-on settings.
 # Installation
 //TODO
 # Usage
-Select one or more kanji and the pop-up will display.
-//TODO: insert image
-You can also move the popup around by dragging it by the handle on the top left.
-//TODO: insert image
+## Select one or more kanji and the pop-up will display.
+![popup image](https://github.com/Bob7650/kanji-info-popover/blob/main/screenshots/popup.png)
+## You can also move the popup around by dragging it by the handle on the top left.
+![popup drag gif](https://github.com/Bob7650/kanji-info-popover/blob/main/screenshots/popup_drag.gif)
 # License
 This project is licensed under the GNU Affero General Public License v3.0 - see the [LICENSE](LICENSE) file for details.
