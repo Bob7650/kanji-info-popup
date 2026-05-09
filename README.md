@@ -15,7 +15,7 @@ Displayed data can be adjusted in Add-on settings.
 There are two ways of installing Anki Add-ons:
 
 **From AnkiWeb (recommended):**
-1. Go on the [AnkiWeb](//TODO put link here) and copy the code of this Add-on.
+1. Go on the [AnkiWeb](https://ankiweb.net/shared/info/928726597?cb=1778361857052) and copy the code of this Add-on.
 2. Startup your Anki and navigate to `Tools->Add-ons`.
 3. Press `Get Add-ons...` and paste the code there.
 4. Press "OK" and restart Anki.
