@@ -19,7 +19,8 @@ function onReady() {
 }
 
 function onMouseUp(e) {
-    setTimeout(updatePopover, 100, e);
+    const mousePos = {x: e.clientX, y: e.clientY};
+    setTimeout(updatePopover, 100, mousePos);
 }
 
 function onMouseMove(e){
@@ -30,8 +31,8 @@ function onMouseMove(e){
     }
 }
 
-function updatePopover(e){
-    if (isInsidePopover(e.clientX, e.clientY)) return;
+function updatePopover(mousePos){
+    if (isInsidePopover(mousePos.x, mousePos.y)) return;
     
     const selection = getSelectionText();
 
@@ -150,8 +151,8 @@ function isInsidePopover(x, y) {
 
     return (
         popoverRect.x < x &&
-        x < popoverRect.width + scrollbarPadding &&
+        x < popoverRect.width + popoverRect.x + scrollbarPadding &&
         popoverRect.y < y &&
-        y < popoverRect.height
+        y < popoverRect.height + popoverRect.y
     );
 }
