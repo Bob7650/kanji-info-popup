@@ -1,5 +1,5 @@
 # Description
-This is an Anki Add-on that allows a convenient access to basic information about Japanese Kanji, without leaving Anki. It comes with data about all the Jōyō Kanji already saved so you can use if offline. Other Kanji will be automatically fetched from the API when selected, and saved for future lookup (requires access to the internet).
+This is an Anki Add-on that allows convenient access to basic information about Japanese Kanji, without leaving Anki. It comes with data about all the Jōyō Kanji already saved so you can use it offline. Other Kanji will be automatically fetched from the API when selected, and saved for future lookup (requires access to the internet).
 
 ## This add-on can display:
 - English meanings,
@@ -15,14 +15,14 @@ Displayed data can be adjusted in Add-on settings.
 There are two ways of installing Anki Add-ons:
 
 **From AnkiWeb (recommended):**
-1. Go on the [AnkiWeb](https://ankiweb.net/shared/info/928726597?cb=1778361857052) and copy the code of this Add-on.
-2. Startup your Anki and navigate to `Tools->Add-ons`.
+1. Go to [AnkiWeb](https://ankiweb.net/shared/info/928726597?cb=1778361857052) and copy the code of this Add-on.
+2. Open your Anki and navigate to `Tools->Add-ons`.
 3. Press `Get Add-ons...` and paste the code there.
 4. Press "OK" and restart Anki.
 
 **From file:**
 1. Download the .ankiaddon file below
-2. Startup your Anki and navigate to `Tools->Add-ons`.
+2. Open your Anki and navigate to `Tools->Add-ons`.
 3. Press `Install from file...` and choose the downloaded file
 4. Restart Anki
 
